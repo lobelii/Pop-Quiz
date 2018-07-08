@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ready for the challenge?</title>
+</head>
+
+<style media="screen" type="text/css">
+
+body {
+	background-color: lightblue;
+}
+
+div.wrapper {
+	margin-left : 10%;
+	margin-right : 10%;
+	margin-top : 20%;
+	margin-bottom : 10%;
+}
+
+h1,form {
+	display: block;
+	text-align:center
+}
+
+h3 {
+	color: orange;
+	font-size: 10;
+	/*display: inline;*/
+	text-align:center;
+}
+
+input.submit{
+	margin-left: auto;
+	margin-top: 15px;
+    margin-right: auto;
+    width: 8em;
+    display: block;
+    text-align:center
+    padding:200px;
+}
+
+</style>
+
+<body>
+	<div class="wrapper"> 
+	<h1 id='question'> Ready for the challenge? </h1>
+
+	<form class='form' action="" method="post">
+	    <input type="radio" name="answer" id="option1" value="a" >
+	    <label for="option1">Yes!</label>
+
+	    <input type="radio" name="answer" id="option2" value="b">
+	    <label for="option2">Let's go!</label>
+	    
+	    <input type="radio" name="answer" id="option3" value="c">
+	    <label for="option3">Hurray!</label>
+
+	    <input class= 'submit' type = 'submit' value = 'Submit' >
+	    
+	</form>
+
+	<h3> Your score is <span id='score'>0</span>.</h3>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="script.js"></script>
+</body>
+</html>

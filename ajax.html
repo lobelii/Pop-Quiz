@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		// I'm saving a promise with the resolution of my ajax request in a variable
+		// const myGitHub = $.ajax({
+		// 	url:'https://api.github.com/users/lobelii',
+		// 	dataType: 'JSON'
+		// });
+
+		// const yourGithub = $.ajax({
+		// 	url:'https://api.github.com/users/wesbos',
+		// 	dataType: 'JSON'
+		// });
+
+		// console.log(myGitHub);
+
+		// // When the server comes bakc with my data, I'm going to do something.
+		// $.when(myGitHub, yourGithub)  //After both two promises are done, then do...
+		// 	.done(function(mine, yours){
+		// 		console.log(result);
+		// 	})
+		// 	.fail(function(err1,err2){
+		// 		console.log('failed')
+		// 	})
+
+		// // requesting users to use their camera
+		// const cameraPromise = navigator.mediaDevices.getUserMedia({ video: true});
+
+		// console.log(cameraPromise);
+
+		// cameraPromise
+		// 	.then(function(localMediaStream){
+		// 		// do something with the stream
+		// 	})
+		// 	.catch(function(err){ // catch is denial of the request (e.g. user refuse to use camera). Fail is the fail of the 								request.
+		// 		console.log('Oops, an error!',err)
+		// 	})
+
+		// //Pokemon API
+		//  fetch('https://pokeapi.co/api/v2/pokemon/1/')  //fetch is not a jQuery function.
+		//  	.then(function(res){
+		// 	 	return res.json()        //the result of fetch is not json. We formatted into json.
+		// 	 	// console.log(data);
+		// 	 })
+		//  		.then(function(data){    //chain another then, and console log the result.
+		//  			console.log(data)
+		//  		})
+		//  		.catch(function(err){
+		//  			alert(`Things went wrong ${err}`)   //chain another catch to alert in case of error.
+		//  		})
+
+		 //Async function
+		 // async function grabPokemon(){
+		 // 	try{
+			//  	const pokeData = fetch('https://pokeapi.co/api/v2/pokemon/1/') 
+			//  	console.log(pokeData);
+			//  	pokeData.then(
+			//  		data => {console.log(data)})
+			//  }catch(err){
+			//  	console.log(err)
+			//  }
+		 // }
+
+		 // grabPokemon();
+
+		 // Create a new promise
+		//  function getCoffee() {
+		//     return new Promise(function(resolve, reject) {
+		//         // after 2 seconds, return coffee
+		//         setTimeout(() => resolve('Coffee!'), 2000);
+		//     });
+		// }
+
+		// getCoffee()
+		//     .then(coffee => {
+		//         console.log(coffee);
+		//     });
+
+		let pokemonApp = {};
+
+		pokemonApp.call = $.ajax({   // Here you are not creating a new variable, but creating a object. Cannot use const bc a valid variable name cannot contain "." You are only claiming object.
+			url:'https://pokeapi.co/api/v2/pokemon/1/',
+			method: 'GET',
+			dataType: 'JSON'
+		});
+
+		//console.log(pokemonApp.call)
+
+		// $.when(pokemonApp.call).then( function(res) {
+		// 	console.log(res)
+		// });
+
+
+		// pokemonApp.call2 = $.ajax({   // Here you are not creating a new variable, but creating a object. Cannot use const bc a valid variable name cannot contain "." You are only claiming object.
+		// 	url:'https://pokeapi.co/api/v2/pokemon/2/',
+		// 	method: 'GET',
+		// 	dataType: 'JSON'
+		// });
+
+		// $.when(pokemonApp.call1, pokemonApp.call2).then((res1, res2) =>{
+		// 	console.log(res1,res2);
+		// })
+
+		// .fail((err1,err2)=>{
+		// 	console.log(err1,err2)
+		// })
+
+
+		// Creating a program that grab a bunch of Pokemon
+		function getPokemon(number) {
+			return $.ajax({    //using return here, so that getPokemon() returns a promise
+				url:`https://pokeapi.co/api/v2/pokemon/${number}/`,
+				method:'GET',
+				dataType:'JSON'
+
+			})
+		}
+
+
+		const pokePromises=[]; // so that you can sort the result by sequence. Otherwise ajax request runs asynchronizingly and returns results in no particular order.
+
+		for(i=1; i<=3; i++) {
+			pokePromises.push(getPokemon(i));
+		};
+
+		$.when(...pokePromises)   //The spread operator pass all variables in one go
+		.then((...args)=>{   
+			console.log(args);
+			args.forEach((poke,i)=>console.log(poke[0].name,poke[0].id));
+		})
+		
+	</script>
+</body>
+</html>
